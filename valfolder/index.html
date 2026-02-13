@@ -1,238 +1,265 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Valentine gang 💘</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question 💘</title>
 
-<!-- Cute Romantic Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
-<style>
-body {
-  margin: 0;
-  background: black;
-  color: white;
-  font-family: 'Quicksand', sans-serif;
-  overflow: hidden;
-  cursor: default;
-}
+    <style>
+        :root {
+            --primary-pink: #ff85a2;
+            --dark-pink: #ff4d6d;
+            --soft-white: #fff0f3;
+        }
 
-.container {
-  position: absolute;
-  top: 40%;
-  width: 100%;
-  text-align: center;
-  z-index: 5;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #ffafbd, #ffc3a0);
+            color: #4a4a4a;
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-h1 {
-  font-family: 'Pacifico', cursive;
-  font-size: 3.5em;
-  margin-bottom: 30px;
-}
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.4);
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 6s linear infinite;
+        }
 
-button {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 1.5em;
-  padding: 12px 35px;
-  margin: 0 20px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
 
-#yesBtn { background: #ff69b4; color: white; }
-#noBtn { background: #ff4d6d; color: white; }
+        /* Card Container */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 5;
+            max-width: 90%;
+            width: 450px;
+            border: 5px solid white;
+        }
 
-button:hover {
-  transform: scale(1.1);
-}
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: var(--dark-pink);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+        }
 
-/* Background Video */
-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: none;
-  z-index: 1;
-}
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
 
-/* HUH animation */
-.full-screen-word {
-  font-family: 'Quicksand', sans-serif;
-  position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 25vw;
-  font-weight: bold;
-  letter-spacing: 15px;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 10;
-}
+        button {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-.animate-huh {
-  animation: huhAnim 1.5s forwards;
-}
+        #yesBtn { background: var(--primary-pink); color: white; }
+        #noBtn { background: #e0e0e0; color: #777; }
 
-@keyframes huhAnim {
-  0% { opacity: 0; transform: scale(0.8); }
-  20% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.4); }
-}
+        button:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
 
-/* Typing text */
-#typedText {
-  font-family: 'Dancing Script', cursive;
-  position: fixed;
-  top: 20%;
-  width: 100%;
-  text-align: center;
-  font-size: 4em;
-  z-index: 10;
-}
+        /* Video Layer */
+        #bgVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            z-index: 20;
+            background: black;
+        }
 
-/* Shake */
-@keyframes shake {
-  0% { transform: translate(0); }
-  25% { transform: translate(-5px); }
-  50% { transform: translate(5px); }
-  75% { transform: translate(-5px); }
-  100% { transform: translate(0); }
-}
+        /* Overlay Text */
+        #typedText {
+            font-family: 'Dancing Script', cursive;
+            position: fixed;
+            top: 15%;
+            width: 100%;
+            text-align: center;
+            font-size: 3.5rem;
+            color: white;
+            z-index: 30;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
 
-.shake {
-  animation: shake 0.3s infinite;
-}
+        /* HUH Animation */
+        .full-screen-word {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20vw;
+            font-weight: 900;
+            color: white;
+            opacity: 0;
+            z-index: 40;
+            pointer-events: none;
+        }
 
-/* Explode */
-@keyframes explode {
-  to {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
+        .animate-huh { animation: huhAnim 1.2s forwards; }
+        @keyframes huhAnim {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(1.5); }
+        }
 
-.explode {
-  animation: explode 0.5s forwards;
-}
-</style>
+        .shake { animation: shake 0.2s infinite; }
+        @keyframes shake {
+            0% { transform: translate(0); }
+            25% { transform: translate(-8px); }
+            75% { transform: translate(8px); }
+        }
+
+        .explode { 
+            animation: explode 0.6s forwards;
+            pointer-events: none;
+        }
+        @keyframes explode {
+            to { transform: scale(3); opacity: 0; }
+        }
+    </style>
 </head>
-
 <body>
 
 <video id="bgVideo" playsinline></video>
+<div id="typedText"></div>
+<div class="full-screen-word" id="huhScreen">HUH?</div>
 
-<div class="container" id="mainContent">
-  <h1 id="question">Will you be my Valentine?</h1>
-  <button id="yesBtn">Yes</button>
-  <button id="noBtn">No</button>
+<div class="card" id="mainContent">
+    <h1 id="question">Will you be my Valentine? 💌</h1>
+    <div class="btn-group">
+        <button id="yesBtn">Yes! ✨</button>
+        <button id="noBtn">No</button>
+    </div>
 </div>
 
-<div class="full-screen-word" id="huhScreen">HUH</div>
-<div id="typedText"></div>
-
 <script>
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const huhScreen = document.getElementById("huhScreen");
-const bgVideo = document.getElementById("bgVideo");
-const typedText = document.getElementById("typedText");
-const mainContent = document.getElementById("mainContent");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const huhScreen = document.getElementById("huhScreen");
+    const bgVideo = document.getElementById("bgVideo");
+    const typedText = document.getElementById("typedText");
+    const mainContent = document.getElementById("mainContent");
 
-let noClickCount = 0;
+    let noClickCount = 0;
 
-/* Play Video With Sound */
-function playVideo(src) {
-  mainContent.style.display = "none";
-  typedText.innerHTML = "";
+    // Create floating hearts
+    function createHearts() {
+        for(let i=0; i<25; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(heart);
+        }
+    }
+    createHearts();
 
-  bgVideo.src = src;
-  bgVideo.style.display = "block";
-  bgVideo.muted = false;
-  bgVideo.volume = 1.0;
-  bgVideo.currentTime = 0;
-
-  bgVideo.play().catch(err => {
-    console.log("Autoplay prevented:", err);
-  });
-
-  setTimeout(() => {
-    bgVideo.pause();
-    bgVideo.style.display = "none";
-    mainContent.style.display = "block";
-    typedText.innerHTML = "";
-  }, 7000);
-}
-
-/* Typing Animation */
-function typeText(text) {
-  typedText.innerHTML = "";
-  let i = 0;
-
-  let interval = setInterval(() => {
-    typedText.innerHTML += text[i];
-    i++;
-    if (i >= text.length) clearInterval(interval);
-  }, 100);
-}
-
-/* NO Button Logic */
-noBtn.addEventListener("click", () => {
-  noClickCount++;
-
-  if (noClickCount === 1) {
-    playVideo("1stvid.mp4");
-    typeText("think again 💭");
-
-    noBtn.style.transform = "scale(0.8)";
-    noBtn.style.marginTop = "30px";
-
-  } else if (noClickCount === 2) {
-    playVideo("2ndvid.mp4");
-    typeText("think again 😌");
-
-    noBtn.style.transform = "scale(0.6)";
-    noBtn.style.marginTop = "60px";
-
-  } else if (noClickCount === 3) {
-    playVideo("3rdvid.mp4");
-    typeText("last chance... 💀");
-
-    setTimeout(() => {
-      noBtn.classList.add("shake");
-
-      setTimeout(() => {
-        noBtn.classList.remove("shake");
-        noBtn.classList.add("explode");
+    function playVideo(src) {
+        mainContent.style.opacity = "0";
+        typedText.innerHTML = "";
+        
+        bgVideo.src = src;
+        bgVideo.style.display = "block";
+        bgVideo.currentTime = 0;
+        bgVideo.play().catch(e => console.log("Video Play Error:", e));
 
         setTimeout(() => {
-          noBtn.style.display = "none";
-        }, 500);
+            bgVideo.pause();
+            bgVideo.style.display = "none";
+            mainContent.style.opacity = "1";
+            typedText.innerHTML = "";
+        }, 6500); 
+    }
 
-      }, 1000);
+    function typeText(text) {
+        typedText.innerHTML = "";
+        let i = 0;
+        let interval = setInterval(() => {
+            if (i < text.length) {
+                typedText.innerHTML += text[i];
+                i++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 80);
+    }
 
-    }, 7000);
-  }
-});
+    noBtn.addEventListener("click", () => {
+        noClickCount++;
+        
+        if (noClickCount === 1) {
+            playVideo("1stvid.mp4");
+            typeText("Wait... think again? 💭");
+            noBtn.style.transform = "scale(0.8)";
+        } 
+        else if (noClickCount === 2) {
+            playVideo("2ndvid.mp4");
+            typeText("Malkin 😌");
+            noBtn.style.transform = "scale(0.5)";
+        } 
+        else if (noClickCount === 3) {
+            playVideo("3rdvid.mp4");
+            typeText("No pls");
+            
+            setTimeout(() => {
+                noBtn.classList.add("shake");
+                setTimeout(() => {
+                    noBtn.classList.remove("shake");
+                    noBtn.classList.add("explode");
+                    setTimeout(() => { noBtn.style.visibility = "hidden"; }, 500);
+                }, 1200);
+            }, 5000);
+        }
+    });
 
-/* YES Button Logic */
-yesBtn.addEventListener("click", () => {
-
-  huhScreen.classList.add("animate-huh");
-
-  setTimeout(() => {
-    huhScreen.classList.remove("animate-huh");
-    playVideo("yayvid.mp4");
-  }, 1500);
-
-});
+    yesBtn.addEventListener("click", () => {
+        huhScreen.classList.add("animate-huh");
+        setTimeout(() => {
+            huhScreen.classList.remove("animate-huh");
+            playVideo("yayvid.mp4");
+            typeText("YAY! Best day ever! ❤️");
+        }, 1200);
+    });
 </script>
 
 </body>
